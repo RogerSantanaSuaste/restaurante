@@ -17,8 +17,13 @@ model Mesas {
   id_mesa Int @id @default(autoincrement())
   capacidad_mesa Int
   numero_mesa Int
-  estado_mesa Int
+  id_estado_mesa Int
   id_empleado Int
+}
+
+model estado_mesa {
+  id  Int @id @default(autoincrement())
+  estado Int
 }
 
 model Reservas {
@@ -27,7 +32,12 @@ model Reservas {
   id_mesa Int
   fecha_hora DateTime
   numero_personas_reserva Int
-  confirmacion String
+  id_confirmacion String
+}
+
+model confirmacion {
+  id Int @id @default(autoincrement())
+  estado Int
 }
 
 model Empleados {
