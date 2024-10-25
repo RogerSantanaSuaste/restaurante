@@ -11,7 +11,7 @@ export default async function name(
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE');
     if (req.method === 'GET'){
         try{
-            const Mesas = await prisma.Mesas.findMany();
+            const Mesas = await prisma.mesas.findMany();
             res.status(200).json(Mesas)
         }catch(error){
             res.status(500).json({message:'Error al obtener las mesas', error});
@@ -24,7 +24,7 @@ export default async function name(
 
         try{
             const estadoMesa = estado === 'true';
-            const newMesa = await prisma.Mesas.create({
+            const newMesa = await prisma.mesas.create({
                 data: {
                     capacidad: parseInt(capacidad),
                     numero: parseInt(numero),
@@ -44,7 +44,7 @@ export default async function name(
 
         try{
             const estadoMesa = estado === 'true';
-            const updateMesa = await prisma.Mesas.update({
+            const updateMesa = await prisma.mesas.update({
                 where: {id: parseInt(id)},
                 data: {
                     capacidad: parseInt(capacidad),
@@ -67,7 +67,7 @@ export default async function name(
 
         try{
             //esto me va a servir para eliminar el producto por ID
-            const deleteMesa = await prisma.Mesas.delete({
+            const deleteMesa = await prisma.mesas.delete({
                 where: {id: parseInt(id as string)},
             });
             res.status(200).json(deleteMesa);

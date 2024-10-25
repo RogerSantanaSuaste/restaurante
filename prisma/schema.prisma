@@ -14,18 +14,33 @@ datasource db {
 }
 
 model Mesas {
-  id Int @id @default(autoincrement())
-  capacidad Int
-  numero Int
-  estado Boolean
+  id_mesa Int @id @default(autoincrement())
+  capacidad_mesa Int
+  numero_mesa Int
+  estado_mesa Int
   id_empleado Int
 }
 
 model Reservas {
-  id Int @id @default(autoincrement())
+  id_reservas Int @id @default(autoincrement())
   id_cliente Int
   id_mesa Int
   fecha_hora DateTime
-  numero_personas Int
-  confirmacion Boolean
+  numero_personas_reserva Int
+  confirmacion String
+}
+
+model Empleados {
+  id_empleados Int @id @default(autoincrement())
+  nombre_empleado String
+  puesto_empleado String
+  salario_empelado Float
+}
+
+model Cliente {
+  id_clientes Int @id @default(autoincrement())
+  nombre_cliente String
+  id_reservas Int
+  numero_telefono Int
+  email_cliente String
 }
