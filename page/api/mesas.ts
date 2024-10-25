@@ -11,49 +11,51 @@ export default async function name(
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE');
     if (req.method === 'GET'){
         try{
-            const products = await prisma.mesas.findMany();
-            res.status(200).json(products)
+            const Mesas = await prisma.Mesas.findMany();
+            res.status(200).json(Mesas)
         }catch(error){
-            res.status(500).json({message:'Error al obtener los productos', error});
+            res.status(500).json({message:'Error al obtener las mesas', error});
         }
     } else if (req.method === 'POST'){
-        const { nombre, descripcion, precio, stock } = req.body;
-        if (!nombre || !precio || !descripcion || !stock){
+        const { capacidad, numero, estado, id_empleado } = req.body;
+        if (!capacidad || !numero || !estado || !id_empleado){
             return res.status(400).json({message: 'Faltan campos requeridos'})
         }
 
         try{
-            const newProduct = await prisma.mesas.create({
+            const estadoMesa = estado === 'true';
+            const newMesa = await prisma.Mesas.create({
                 data: {
-                    nombre,
-                    precio: parseFloat(precio),
-                    stock: parseInt(stock),
-                    descripcion
+                    capacidad: parseInt(capacidad),
+                    numero: parseInt(numero),
+                    estado: estadoMesa,
+                    id_empleado: parseInt(id_empleado)
                 },
             });
-            res.status(201).json(newProduct);
+            res.status(201).json(newMesa);
         }catch(error){
-            res.status(500).json({message: 'Error al actualizar el producto', error});
+            res.status(500).json({message: 'Error al crear la mesa', error});
         }
     }else if(req.method === 'PUT'){
-        const { id, nombre, descripcion, precio, stock } = req.body;
-        if (!nombre || !precio || !descripcion || !stock){
+        const { id, capacidad, numero, estado, id_empleado } = req.body;
+        if (!capacidad || !numero || !estado || !id_empleado){
             return res.status(400).json({message: 'Faltan campos requeridos'})
         }
 
         try{
-            const updateProduct = await prisma.producto.update({
+            const estadoMesa = estado === 'true';
+            const updateMesa = await prisma.Mesas.update({
                 where: {id: parseInt(id)},
                 data: {
-                    nombre,
-                    precio: parseFloat(precio),
-                    stock: parseInt(stock),
-                    descripcion
+                    capacidad: parseInt(capacidad),
+                    numero: parseInt(numero),
+                    estado: estadoMesa,
+                    id_empleado: parseInt(id_empleado)
                 },
             });
-            res.status(201).json(updateProduct);
+            res.status(201).json(updateMesa);
         }catch(error){
-            res.status(500).json({message: 'Error al crear el producto', error});
+            res.status(500).json({message: 'Error al actualizar la mesa', error});
         }
 
     } else if(req.method === 'DELETE'){
@@ -65,15 +67,15 @@ export default async function name(
 
         try{
             //esto me va a servir para eliminar el producto por ID
-            const deleteProduct = await prisma.producto.delete({
+            const deleteMesa = await prisma.Mesas.delete({
                 where: {id: parseInt(id as string)},
             });
-            res.status(200).json(deleteProduct);
+            res.status(200).json(deleteMesa);
         }catch (error){
-            res.status(500).json({message: 'Error al eliminar el producto', error});
+            res.status(500).json({message: 'Error al eliminar la mesa', error});
         }
     } else {
         res.status(405).json({message: 'Método no permitido'});
-    }
-    
+    }
+    
 }
