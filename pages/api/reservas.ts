@@ -27,7 +27,7 @@ export default async function name(
                 data: {
                     id_cliente: parseInt(id_cliente),
                     id_mesa: parseInt(id_mesa),
-                    fecha_hora: new Date(),
+                    fecha_hora: new Date(fecha_hora),
                     numero_personas_reserva: parseInt(numero_persona_reservas),
                     id_confirmacion: id_confirmacion
 
@@ -49,7 +49,7 @@ export default async function name(
                 data: {
                     id_cliente: parseInt(id_cliente),
                     id_mesa: parseInt(id_mesa),
-                    fecha_hora: new Date(),
+                    fecha_hora: new Date(fecha_hora),
                     numero_personas_reserva: parseInt(numero_persona_reservas),
                     id_confirmacion: id_confirmacion
                 },
