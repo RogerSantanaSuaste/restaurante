@@ -32,7 +32,7 @@ model Reservas {
   id_mesa Int
   fecha_hora DateTime
   numero_personas_reserva Int
-  id_confirmacion String
+  id_confirmacion Int
 }
 
 model confirmacion {

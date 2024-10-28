@@ -36,7 +36,7 @@ export default async function name(
             res.status(500).json({message: 'Error al crear la mesa', error});
         }
     }else if(req.method === 'PUT'){
-        const { id, capacidad_mesa, numero_mesa, id_estado_mesa, id_empleado } = req.body;
+        const { id_mesa, capacidad_mesa, numero_mesa, id_estado_mesa, id_empleado } = req.body;
         if (!capacidad_mesa || !numero_mesa || !id_estado_mesa || !id_empleado){
             return res.status(400).json({message: 'Faltan campos requeridos'})
         }
@@ -44,7 +44,7 @@ export default async function name(
         try{
             
             const updateMesa = await prisma.mesas.update({
-                where: {id: parseInt(id)},
+                where: {id_mesa: parseInt(id_mesa)},
                 data: {
                     capacidad_mesa: parseInt(capacidad_mesa),
                     numero_mesa: parseInt(numero_mesa),
@@ -58,16 +58,16 @@ export default async function name(
         }
 
     } else if(req.method === 'DELETE'){
-        const {id} = req.query;
+        const {id_mesa} = req.query;
 
-        if (!id){
+        if (!id_mesa){
             return res.status(400).json({message: 'El id del producto es requerido'});
         }
 
         try{
             //esto me va a servir para eliminar el producto por ID
             const deleteMesa = await prisma.mesas.delete({
-                where: {id: parseInt(id as string)},
+                where: {id_mesa: parseInt(id_mesa as string)},
             });
             res.status(200).json(deleteMesa);
         }catch (error){
