@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export default async function name(
+export default async function Reservas(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
@@ -11,8 +11,12 @@ export default async function name(
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE');
     if (req.method === 'GET'){
         try{
-            const Mesas = await prisma.reservas.findMany();
-            res.status(200).json(Mesas)
+            const Reservas = await prisma.reservas.findMany();
+            const fechaHoraActual = new Date();
+            const fechaHoraRango = new Date(fechaHoraActual); // Definimos la fecha actual
+            fechaHoraRango.setMinutes(fechaHoraActual.getMinutes() + 30);   // Le añadimos 30 minutos para que exista un rango (la mesa debe estar desocupada con antelación)
+            // Aqui implementar la logica
+            res.status(200).json({Reservas})
         }catch(error){
             res.status(500).json({message:'Error al obtener las Reservas', error});
         }
@@ -78,5 +82,4 @@ export default async function name(
     } else {
         res.status(405).json({message: 'Método no permitido'});
     }
-
 }

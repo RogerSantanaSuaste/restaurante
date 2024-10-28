@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export default async function name(
+export default async function Mesas(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
