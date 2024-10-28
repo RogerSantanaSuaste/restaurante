@@ -11,7 +11,7 @@ export default async function name(
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE');
     if (req.method === 'GET'){
         try{
-            const Mesas = await prisma.Reservas.findMany();
+            const Mesas = await prisma.reservas.findMany();
             res.status(200).json(Mesas)
         }catch(error){
             res.status(500).json({message:'Error al obtener las Reservas', error});
@@ -23,13 +23,13 @@ export default async function name(
         }
 
         try{
-            const newReserva = await prisma.Reservas.create({
+            const newReserva = await prisma.reservas.create({
                 data: {
                     id_cliente: parseInt(id_cliente),
                     id_mesa: parseInt(id_mesa),
                     fecha_hora: new Date(),
-                    numero_persona_reservas: parseInt(numero_persona_reservas),
-                    id_confirmacion: parseInt(id_confirmacion)
+                    numero_personas_reserva: parseInt(numero_persona_reservas),
+                    id_confirmacion: id_confirmacion
 
                 },
             });
@@ -44,14 +44,14 @@ export default async function name(
         }
 
         try{
-            const updateReserva = await prisma.Reservas.update({
+            const updateReserva = await prisma.reservas.update({
                 where: {id_reservas: parseInt(id_reservas)},
                 data: {
                     id_cliente: parseInt(id_cliente),
                     id_mesa: parseInt(id_mesa),
                     fecha_hora: new Date(),
-                    numero_persona_reservas: parseInt(numero_persona_reservas),
-                    id_confirmacion: parseInt(id_confirmacion)
+                    numero_personas_reserva: parseInt(numero_persona_reservas),
+                    id_confirmacion: id_confirmacion
                 },
             });
             res.status(201).json(updateReserva);
@@ -68,7 +68,7 @@ export default async function name(
 
         try{
             //esto me va a servir para eliminar el producto por ID
-            const deleteReserva = await prisma.Reservas.delete({
+            const deleteReserva = await prisma.reservas.delete({
                 where: {id_reservas: parseInt(id_reservas as string)},
             });
             res.status(200).json(deleteReserva);
