@@ -17,8 +17,8 @@ export default async function Mesas(
             res.status(500).json({message:'Error al obtener las mesas', error});
         }
     } else if (req.method === 'POST'){
-        const { capacidad_mesa, numero_mesa, id_estado_mesa, id_empleado } = req.body;
-        if (!capacidad_mesa || !numero_mesa || !id_estado_mesa || !id_empleado){
+        const { capacidad_mesa, numero_mesa, estado_mesa, id_empleado } = req.body;
+        if (!capacidad_mesa || !numero_mesa || !estado_mesa || !id_empleado){
             return res.status(400).json({message: 'Faltan campos requeridos'})
         }
 
@@ -27,7 +27,7 @@ export default async function Mesas(
                 data: {
                     capacidad_mesa: parseInt(capacidad_mesa),
                     numero_mesa: parseInt(numero_mesa),
-                    id_estado_mesa: parseInt(id_estado_mesa),
+                    id_estado_mesa: parseInt(estado_mesa),
                     id_empleado: parseInt(id_empleado)
                 },
             });
@@ -36,8 +36,8 @@ export default async function Mesas(
             res.status(500).json({message: 'Error al crear la mesa', error});
         }
     }else if(req.method === 'PUT'){
-        const { id_mesa, capacidad_mesa, numero_mesa, id_estado_mesa, id_empleado } = req.body;
-        if (!capacidad_mesa || !numero_mesa || !id_estado_mesa || !id_empleado){
+        const { id_mesa, capacidad_mesa, numero_mesa, estado_mesa, id_empleado } = req.body;
+        if (!capacidad_mesa || !numero_mesa || !estado_mesa || !id_empleado){
             return res.status(400).json({message: 'Faltan campos requeridos'})
         }
 
@@ -48,7 +48,7 @@ export default async function Mesas(
                 data: {
                     capacidad_mesa: parseInt(capacidad_mesa),
                     numero_mesa: parseInt(numero_mesa),
-                    id_estado_mesa: parseInt(id_estado_mesa),
+                    id_estado_mesa: parseInt(estado_mesa),
                     id_empleado: parseInt(id_empleado)
                 },
             });
